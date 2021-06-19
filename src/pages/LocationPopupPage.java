@@ -33,4 +33,13 @@ public class LocationPopupPage extends BasicPage {
 	public WebElement getSubmit () {
 		return this.driver.findElement(By.name("btn_submit"));
 	}
+	
+	public void openLocationDialog () {
+		this.getSelectLocation().click();
+	}
+	
+	public void setLocationName (String locationName) {
+		this.getKeyword().click();
+		
+	}
 }
