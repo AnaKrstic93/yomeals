@@ -23,4 +23,11 @@ public class LoginPage extends BasicPage {
 		return this.driver.findElement(By.name("btn_submit"));
 	}
 	
+	public void logIn (String username, String password) {
+		this.getUsernameInput().clear();
+		this.getUsernameInput().sendKeys(username);
+		this.getPasswordInput().clear();
+		this.getPasswordInput().sendKeys(password);
+		this.getLoginButton().click();
+	}
 }
