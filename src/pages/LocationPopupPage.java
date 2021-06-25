@@ -1,13 +1,15 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LocationPopupPage extends BasicPage {
 
-	public LocationPopupPage(WebDriver driver) {
-		super(driver);
+	public LocationPopupPage(WebDriver driver, JavascriptExecutor js, WebDriverWait wait) {
+		super(driver, js, wait);
 	}
 	
 	public WebElement getSelectLocation () {
@@ -23,7 +25,7 @@ public class LocationPopupPage extends BasicPage {
 	}
 	
 	public WebElement getLocationItem (String locationName) {
-		return this.driver.findElement(By.xpath("//li/a[contains(text(), '" + locationName + "')]/.."));
+		return this.driver.findElement(By.xpath("//li/a[contains(text(), \"" + locationName + "\")]/.."));
 	}
 	
 	public WebElement getLocationInput () {
@@ -38,8 +40,17 @@ public class LocationPopupPage extends BasicPage {
 		this.getSelectLocation().click();
 	}
 	
-	public void setLocationName (String locationName) {
+	public void setLocationName (String locationName) throws InterruptedException {
 		this.getKeyword().click();
-		
+		Thread.sleep(500);
+		String dataValue = this.getLocationItem(locationName).getAttribute("data-value");
+		Thread.sleep(500);
+		js.executeScript("arguments[0].value=arguments[1];", this.getLocationInput(), dataValue);
+		Thread.sleep(500);
+		js.executeScript("arguments[0].click();", this.getSubmit());
+	}
+	
+	public void closeLocationDialog () {
+		this.getCloseBtn().click();
 	}
 }

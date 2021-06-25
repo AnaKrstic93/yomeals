@@ -18,7 +18,7 @@ public class MealPage extends BasicPage {
 	}
 	
 	public WebElement getAddToCartBtn () {
-		return this.driver.findElement(By.linkText(" Add To Cart "));
+		return this.driver.findElement(By.partialLinkText("Add To Cart"));
 	}
 	
 	public WebElement getAddToFavorite() {

@@ -21,10 +21,6 @@ public class ProfilePage extends BasicPage {
 	public WebElement getLastNameInput () {
 		return this.driver.findElement(By.name("user_last_name"));
 	}
-
-	public WebElement getEmailInput () {
-		return this.driver.findElement(By.name("user_email"));
-	}
 	
 	public WebElement getAddressInput () {
 		return this.driver.findElement(By.name("user_address"));
@@ -88,22 +84,18 @@ public class ProfilePage extends BasicPage {
 	
 	public void changeUserInfo (String firstName, 
 								String lastName,
-								String email,
 								String address,
 								String phoneNum,
 								String zipCode,
 								String country,
 								String state,
-								String city) {
+								String city) throws InterruptedException {
 		
 		this.getFirstNameInput().clear();
 		this.getFirstNameInput().sendKeys(firstName);
 		
 		this.getLastNameInput().clear();
 		this.getLastNameInput().sendKeys(lastName);
-		
-		this.getEmailInput().clear();
-		this.getEmailInput().sendKeys(email);
 		
 		this.getAddressInput().clear();
 		this.getAddressInput().sendKeys(address);
@@ -115,12 +107,12 @@ public class ProfilePage extends BasicPage {
 		this.getZipCodeInput().sendKeys(zipCode);
 		
 		this.getCountryInput().selectByVisibleText(country);
-		
+		Thread.sleep(500);
 		this.getStateInput().selectByVisibleText(state);
-		
+		Thread.sleep(500);
 		this.getCityInput().selectByVisibleText(city);
-		
-		this.getSaveBtn().click();
+		Thread.sleep(500);
+		this.js.executeScript("arguments[0].click();", this.getSaveBtn());
 	}
 }
 
