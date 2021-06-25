@@ -25,4 +25,22 @@ public class MealItemTest extends BasicTest {
 			      "[ERROR] Verification message doesn't appear.");
 	}
 	
+	@Test (priority = 2)
+	public void addMealToFavouriteTest () throws InterruptedException {
+		this.driver.get(this.baseUrl + "/meal/lobster-shrimp-chicken-quesadilla-combo");
+		locationPopupPage.closeLocationDialog();
+		Thread.sleep(1000);
+		mealPage.addToFavourite();
+		Assert.assertTrue(notificationSystemPage.getMessageText().contains("Please login first!"),
+			      "[ERROR] Login needed.");
+		
+		this.driver.get(this.baseUrl + "/guest-user/login-form");
+		loginPage.logIn(this.email, this.password);
+		this.driver.get(this.baseUrl + "/meal/lobster-shrimp-chicken-quesadilla-combo");
+		Thread.sleep(1000);
+		mealPage.addToFavourite();
+		Assert.assertTrue(notificationSystemPage.getMessageText().contains("Product has been added to your favorites"),
+			      "[ERROR] Product addition to favourites faliure.");
+	}
+	
 }
